@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Movie.Api.Database;
+using Movie.Api.Endpoints;
 using Movie.Api.Repositories.Implementations;
 using Movie.Api.Repositories.Interface;
 using Scalar.AspNetCore;
@@ -7,6 +8,9 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+builder.Services.AddProblemDetails();
+builder.Services.AddValidation();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -29,10 +33,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler();
+
 app.UseHttpsRedirection();
 
 
-
+app.MapMovieEndpoints();
 
 app.Run();
 
