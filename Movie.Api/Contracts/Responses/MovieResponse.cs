@@ -1,6 +1,6 @@
 namespace Movie.Api.Contracts.Responses;
 
-public sealed record MovieResponse
+public sealed class MovieResponse
 {
     public required string Id { get; init; }
     public required string Name { get; init; } = string.Empty;

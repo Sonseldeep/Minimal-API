@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Movie.Api.Contracts.Requests;
 
-public sealed record CreateMovieRequest
+public sealed class CreateMovieRequest
 {
     [Required,MinLength(2),MaxLength(50)]
     public required string Name { get; init; } = string.Empty;
