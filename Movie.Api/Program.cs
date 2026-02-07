@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Movie.Api.Database;
 using Movie.Api.Endpoints;
 using Movie.Api.Extensions;
@@ -29,6 +28,8 @@ builder.Services.AddDbContext<MovieDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
 });
+
+
 
 
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
