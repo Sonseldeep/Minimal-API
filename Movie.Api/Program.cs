@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Movie.Api.Database;
 using Movie.Api.Endpoints;
 using Movie.Api.Repositories.Implementations;
@@ -14,10 +13,12 @@ builder.Services.AddValidation();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<MovieDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
-});
+// builder.Services.AddDbContext<MovieDbContext>(options =>
+// {
+//     options.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
+// });
+
+builder.AddSqlServerDbContext<MovieDbContext>("Database");
 
 builder.Services.AddScoped<IMovieRepository,MovieRepository>();
 
