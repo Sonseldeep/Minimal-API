@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Movie.Api.Contracts.Queries;
 using Movie.Api.Database;
 using Movie.Api.Repositories.Interface;
 
@@ -6,10 +8,21 @@ namespace Movie.Api.Repositories.Implementations;
 
 public sealed class MovieRepository(MovieDbContext context) : IMovieRepository
 {
-    public async Task<IEnumerable<Entities.Movie>> GetAllAsync(CancellationToken ct = default)
+    public async Task<IEnumerable<Entities.Movie>> GetAllAsync(MoviesQueryParameter query ,CancellationToken ct = default)
     {
+        query.Search ??= query.Search?.Trim().ToLower();
+        query.Genre ??= query.Genre?.Trim().ToLower();
+        
+        
         return await context.Movies
             .AsNoTracking()
+            .Where(m => string.IsNullOrWhiteSpace(query.Search) 
+            || m.Name.ToLower().Contains(query.Search)
+            || m.Description !=null && m.Description.ToLower().Contains(query.Search)
+            )
+            .Where(m => string.IsNullOrWhiteSpace(query.Genre)
+            || m.Genre.ToLower().Contains(query.Genre))
+            .OrderBy(m => m.Name)
             .ToListAsync(ct);
     }
 
