@@ -2,7 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movie.Api", "Movie.Api\Movie.Api.csproj", "{3977682B-CB29-44A1-BBB2-B0FFB1B131A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movie.AppHost", "Movie.AppHost\Movie.AppHost.csproj", "{E138F638-DEF1-4FD5-A2E4-830EB9E6A8E5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A9EB3576-7E50-4DE4-A1B6-5A971943C968}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
