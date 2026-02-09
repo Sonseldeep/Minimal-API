@@ -1,10 +1,8 @@
-version: "3.9"
-
 services:
   preview:
-    image: mcr.microsoft.com/mssql/server:2025-latest
-    container_name: sqlpreview
-    hostname: sqlpreview
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql
+    hostname: sql
     ports:
       - "1433:1433"
     environment:
@@ -12,3 +10,18 @@ services:
       MSSQL_SA_PASSWORD: "Simple123"
       MSSQL_PID: "Evaluation"
     restart: unless-stopped
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.5.2
+    container_name: keycloak
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    command: start-dev
+    restart: unless-stopped
+    volumes:
+        - keycloak_data:/opt/keycloak/data
+volumes:
+    keycloak_data:
