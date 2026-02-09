@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Movie.Api.Contracts.Queries;
 using Movie.Api.Contracts.Requests;
 using Movie.Api.Contracts.Responses;
@@ -37,32 +36,43 @@ public static  class MovieEndpoints
         {
             var movie = request.ToEntity();
             await repo.AddAsync(movie, ct);
-            
-            return Results.CreatedAtRoute(GetMovieById, 
-                new { id = movie.Id}, 
+
+            return Results.CreatedAtRoute(GetMovieById,
+                new { id = movie.Id },
                 movie.ToResponse()
-                );
+            );
+        }).RequireAuthorization(policy =>
+        {
+            policy.RequireRole("Admin", "SuperAdmin");
         });
 
-        group.MapPut("/{id}", async (string id, UpdateMovieRequest request, IMovieRepository repo, CancellationToken ct) =>
-        {
-            var movie = await repo.GetByIdAsync(id, ct);
-
-            if (movie is null)
+        group.MapPut("/{id}",
+            async (string id, UpdateMovieRequest request, IMovieRepository repo, CancellationToken ct) =>
             {
-                return Results.NotFound();
-            }
-            
-            movie.UpdateFrom(request);
-            await repo.UpdateAsync(movie, ct);
-            
-            return Results.NoContent();
+                var movie = await repo.GetByIdAsync(id, ct);
+
+                if (movie is null)
+                {
+                    return Results.NotFound();
+                }
+
+                movie.UpdateFrom(request);
+                await repo.UpdateAsync(movie, ct);
+
+                return Results.NoContent();
+            }).RequireAuthorization(policy =>
+        {
+            policy.RequireRole("Admin", "SuperAdmin");
         });
 
         group.MapDelete("/{id}", async (string id, IMovieRepository repo, CancellationToken ct) =>
         {
             await repo.DeleteAsync(id, ct);
             return Results.NoContent();
+        })
+            .RequireAuthorization(policy =>
+        {
+            policy.RequireRole("SuperAdmin");
         });
     }
 }
