@@ -9,4 +9,6 @@ public sealed class MovieResponse
     public string? Description { get; init; }
     public required decimal Price { get; init; }
     public required string Genre { get; init; } = string.Empty;
+
+    public required string ImageUri { get; init; } 
 }

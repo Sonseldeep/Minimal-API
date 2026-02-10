@@ -19,4 +19,9 @@ public sealed class CreateMovieRequest
     
     [Required]
     public required string Genre { get; init; } = string.Empty;
+
+    [Required]
+    [Url]
+    
+    public string ImageUri { get; set; } = string.Empty;
 }
