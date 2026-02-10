@@ -19,4 +19,10 @@ public sealed class UpdateMovieRequest
     
     [Required]
     public required string Genre { get; init; } = string.Empty;
+    
+    [Required]
+    [StringLength(50)]
+    [Url]
+    
+    public string ImageUri { get; set; } = string.Empty;
 }
