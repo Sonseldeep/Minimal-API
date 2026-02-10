@@ -14,7 +14,8 @@ public static class MovieMappingExtensions
             ReleaseDate = request.ReleaseDate,
             Description = request.Description,
             Price = request.Price,
-            Genre = request.Genre
+            Genre = request.Genre,
+            ImageUri = request.ImageUri
         };
     }
 
@@ -27,7 +28,8 @@ public static class MovieMappingExtensions
             ReleaseDate = response.ReleaseDate,
             Description = response.Description,
             Price = response.Price,
-            Genre = response.Genre
+            Genre = response.Genre,
+            ImageUri = response.ImageUri
         };
     }
 
@@ -38,5 +40,6 @@ public static class MovieMappingExtensions
         entity.Description = request.Description;
         entity.Price = request.Price;
         entity.Genre = request.Genre;
+        entity.ImageUri = request.ImageUri;
     }
 }
